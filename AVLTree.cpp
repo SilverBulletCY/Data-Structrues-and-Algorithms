@@ -1,4 +1,3 @@
-```c++
 // Operations on AVLTree
 struct node {
 	int data;
@@ -168,5 +167,3 @@ void deleteNode(node* root, int key) {
 		}
 	}
 }
-```
-
