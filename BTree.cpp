@@ -1,4 +1,4 @@
-﻿// Operations on Btree
+﻿// Operations on BTree
 
 // 每个结点最多有M棵子树
 // 若根结点不是叶子结点，则至少有两棵子树
@@ -20,7 +20,7 @@ BTnode* splitTree(BTnode* root, BTnode* node);
 void insertToNode(BTnode* root, BTnode* node, int index, int key);
 void search(BTnode* root, int key, BTnode*& pos, int& index);
 void insertToTree(BTnode*& root, int key);
-BTnode* createBTree(vector<int> v);
+BTnode* createBTree(int data[], int n);
 void traversal(BTnode* root);
 
 
@@ -86,6 +86,75 @@ BTnode* splitTree(BTnode* root, BTnode* node) {
 	return root;
 }
 
+//void deleteInNode(BTnode* root, BTnode* node, int index) {
+//	for (int i = index; i < node->keynum - 1; i++) {
+//		node->key[i] = node->key[i + 1];
+//	}
+//	node->key[node->keynum - 1] = 0;
+//	for (int i = index; i < node->keynum; i++) {
+//		node->ptr[i] = node->ptr[i + 1];
+//	}
+//	node->keynum = node->keynum - 1;
+//}
+//
+//void deleteInTree(BTnode* root, int key) {
+//	BTnode* pos = NULL;
+//	int index = 0, flag;
+//	search(root, key, pos, index);
+//	BTnode* left = pos->ptr[index];
+//	BTnode* right = pos->ptr[index + 1];
+//	BTnode* parent = pos->parent;
+//	if (left == NULL && right == NULL) {
+//		if (pos->keynum > MIN) {
+//			deleteInNode(root, pos, index);
+//		}
+//		else if (pos->keynum == MIN) {
+//			int i = 0;
+//			while (parent->key[i] < key) i++;
+//			if (i == 0) {
+//				if (parent->ptr[i + 1]->keynum > MIN) flag = 1;
+//				else flag = 3;
+//			}
+//			else if (i == parent->keynum) {
+//				if (parent->ptr[i - 1]->keynum > MIN) flag = 2;
+//				else flag = 3;
+//			}
+//			else {
+//				if (parent->ptr[i + 1]->keynum > MIN) flag = 1;
+//				else if (parent->ptr[i - 1]->keynum > MIN) flag = 2;
+//				else flag = 3;
+//			}
+//			switch (flag)
+//			{
+//			case 1:
+//				deleteInNode(root, pos, index);
+//				insertToNode(root, pos, MIN - 1, parent->key[i]);
+//				parent->key[i] = parent->ptr[i + 1]->key[0];
+//				deleteInNode(root, parent->ptr[i + 1], 0);
+//			case 2:
+//				deleteInNode(root, pos, index);
+//				insertToNode(root, pos, 0, parent->key[parent->keynum - 1]);
+//				parent->key[parent->keynum - 1] = parent->ptr[i - 1]->key[parent->ptr[i - 1]->keynum - 1];
+//				deleteInNode(root, parent->ptr[i - 1], parent->ptr[i - 1]->keynum - 1);
+//			case 3:
+//
+//			}
+//		}
+//
+//	}
+//	else {
+//		BTnode* cur = pos;
+//		BTnode* pre = pos;
+//		pos = pos->ptr[index];
+//		while (pos != NULL) {
+//			pre = pos;
+//			pos = pos->ptr[pos->keynum];
+//		}
+//		pos->key[index] = pre->key[pre->keynum - 1];
+//		deleteInNode(root, pre, pre->keynum - 1);
+//	}
+//}
+
 void insertToNode(BTnode* root, BTnode* node, int index, int key) {
 	for (int i = node->keynum; i > index; i--) {
 		node->key[i] = node->key[i - 1];
@@ -124,10 +193,10 @@ void insertToTree(BTnode*& root, int key) {
 	}
 }
 
-BTnode* createBTree(vector<int> v) {
+BTnode* createBTree(int data[], int n) {
 	BTnode* root = NULL;
-	for (int i = 0; i < v.size(); i++) {
-		insertToTree(root, v[i]);
+	for (int i = 0; i < n; i++) {
+		insertToTree(root, data[i]);
 	}
 	return root;
 }
