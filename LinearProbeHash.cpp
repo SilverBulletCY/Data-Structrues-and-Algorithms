@@ -4,6 +4,11 @@
 #define N 12
 int hashTable[MAX];
 
+void initHashTable();
+void insertHash(int hashTable[], int key);
+int searchHash(int hashTable[], int key);
+
+
 void initHashTable(){
 	for (int i = 0; i < MAX; i++) {
 		hashTable[i] = 0;
