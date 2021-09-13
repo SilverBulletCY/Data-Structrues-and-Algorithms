@@ -95,7 +95,7 @@ BTnode* splitTree(BTnode* root, BTnode* node) {
 
 	delete node;
 
-	if (parent->keynum >= M) {
+	while (parent->keynum >= M) {
 		root = splitTree(root, parent);
 	}
 	return root;
